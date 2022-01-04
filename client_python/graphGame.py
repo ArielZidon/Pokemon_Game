@@ -1,14 +1,8 @@
-import random
-import pygame
-import os
-from types import SimpleNamespace
-from client import Client
-import json
 from pygame import gfxdraw
 from pygame import *
 from game import *
 import pygame
-import sys
+from client import *
 from pygame.locals import *
 pygame.font.init()
 pygame.mixer.init()
@@ -28,20 +22,97 @@ MOVE_FONT = pygame.font.SysFont('comicsans', 20)
 
 radius = 15
 
-client.add_agent("{\"id\":0}")
-# client.add_agent("{\"id\":1}")
-# client.add_agent("{\"id\":2}")
-# client.add_agent("{\"id\":3}")
-
 FONT = pygame.font.SysFont('Arial', 20, bold=True)
-
 clock = pygame.time.Clock()
 pygame.font.init()
-
-
-LIST = (POKEMON1, POKEMON2, POKEMON3)
-
 pygame.display.set_caption("Pokemon Game")
+
+
+class graphGame:
+    def __init__(self, game: game()):
+        self.game = game
+        self.screen = display.set_mode((WIDTH, HEIGHT), depth=32, flags=RESIZABLE)
+
+        self.POKEMON = pygame.transform.scale(pygame.image.load("pokemon.png"), (self.screen.get_width(), self.screen.get_height()))
+        POKEMON1 = pygame.transform.scale(pygame.image.load("pokemon1.png"), (40, 40))
+        POKEMON2 = pygame.transform.scale(pygame.image.load("pokemon2.png"), (40, 40))
+        POKEMON3 = pygame.transform.scale(pygame.image.load("pokemon3.png"), (40, 40))
+        self.ASH = pygame.transform.scale(pygame.image.load("ash.png"), (40, 40))
+        self.LIST = (POKEMON1, POKEMON2, POKEMON3)
+        self.min_x = float('inf')
+        self.min_y = float('inf')
+        self.max_y = float('-inf')
+        self.max_x = float('-inf')
+        for n in self.game.graph.nodes.values():
+            x = n.pos[0]
+            y = n.pos[1]
+            self.min_x = min(self.min_x, x)
+            self.min_y = min(self.min_y, y)
+            self.max_x = max(self.max_x, x)
+            self.max_y = max(self.max_y, y)
+
+    def scale(self, data, min_screen, max_screen, min_data, max_data):
+        return ((data - min_data) / (max_data-min_data)) * (max_screen - min_screen) + min_screen
+
+    def my_scale(self,data, x=False, y=False):
+        if x:
+            return self.scale(data, 50, self.screen.get_width() - 50, self.min_x, self.max_x)
+        if y:
+            return self.scale(data, 50, self.screen.get_height()-50, self.min_y, self.max_y)
+
+    def draw_node(self):
+        graph_o = self.game.graph
+        for n in graph_o.nodes.values():
+            x = self.my_scale(n.pos[0], x=True)
+            y = self.my_scale(n.pos[1], y=True)
+            gfxdraw.filled_circle(self.screen, int(x), int(y), radius, Color(64, 80, 174))
+            gfxdraw.aacircle(self.screen, int(x), int(y), radius, Color(255, 255, 255))
+
+            # id_srf = FONT.render(str(n.id), True, Color(255, 255, 255))
+            # rect = id_srf.get_rect(center=(x, y))
+            # self.screen.blit(id_srf, rect)
+
+    def draw_edges(self):
+        graph = self.game.graph
+        for i in graph.edges.keys():
+            src = graph.nodes[i[0]]
+            dest = graph.nodes[i[1]]
+            src_x = self.my_scale(src.pos[0], x=True)
+            src_y = self.my_scale(src.pos[1], y=True)
+            dest_x = self.my_scale(dest.pos[0], x=True)
+            dest_y = self.my_scale(dest.pos[1], y=True)
+            pygame.draw.line(self.screen, Color(WHITE), (src_x, src_y), (dest_x, dest_y), width=5)
+
+    def draw_agent(self):
+        agents = self.game.agents
+        for agent in agents:
+            pygame.draw.circle(self.screen, Color(122, 61, 23),
+                               (int(agent.pos[0]), int(agent.pos[1])), 10)
+
+    def draw_pokemon(self):
+        pokemons = self.game.pokemons
+        for p in pokemons:
+            pygame.draw.circle(self.screen, Color(0, 255, 255), (int(p.pos.x), int(p.pos.y)), 10)
+            # self.screen.blit(self.POKEMON, (int(p.pos.x) - 18, int(p.pos.y) - 18))
+
+    def draw_move(self):
+        number_of_move = MOVE_FONT.render("Move: " + str(client.move), 1, WHITE)
+        self.screen.blit(number_of_move, (self.screen.get_width() - 110, self.screen.get_height() - 30))
+
+
+    def main(self):
+        self.screen.blit(self.POKEMON, [0,0])
+        print(self.screen.get_width(), self.screen.get_height())
+        self.draw_edges()
+        self.draw_node()
+        self.draw_agent()
+        display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+                return False
+
 
 class Button:
     def __init__(self, color, rect: pygame.Rect):
@@ -53,52 +124,3 @@ class Button:
         self.pressed = not self.pressed
 
 button = Button(color=(0, 0, 0), rect=pygame.Rect((10, 10), (100, 50)))
-
-class graphGame:
-    def __init__(self, game: game):
-        self.game = game
-        self.screen = display.set_mode((WIDTH, HEIGHT), depth=32, flags=RESIZABLE)
-
-        POKEMON = pygame.transform.scale(pygame.image.load("pokemon.png"), (screen.get_width(), screen.get_height()))
-        POKEMON1 = pygame.transform.scale(pygame.image.load("pokemon1.png"), (40, 40))
-        POKEMON2 = pygame.transform.scale(pygame.image.load("pokemon2.png"), (40, 40))
-        POKEMON3 = pygame.transform.scale(pygame.image.load("pokemon3.png"), (40, 40))
-        ASH = pygame.transform.scale(pygame.image.load("ash.png"), (40, 40))
-
-        self.min_x = float('inf')*-1
-        self.min_y = flaot('inf')*-1
-        self.max_y = float('inf')
-        self.max_x = float('inf')
-
-        for n in game.graph.nodes:
-            x = n.pos[0]
-            y = n.pos[1]
-            self.min_x = min(self.min_x, x)
-            self.min_y = min(self.min_y, y)
-            self.max_x = max(self.max_x, x)
-            self.max_y = max(self.max_y, y)
-
-    def scale(data, min_screen, max_screen, min_data, max_data):
-        return ((data - min_data) / (max_data-min_data)) * (max_screen - min_screen) + min_screen
-
-    def my_scale(data, x=False, y=False):
-        if x:
-            return scale(data, 50, screen.get_width() - 50, min_x, max_x)
-        if y:
-            return scale(data, 50, screen.get_height()-50, min_y, max_y)
-
-    def draw_node(self):
-        graph_node = self.game.graph
-        for n in graph_node:
-            x = my_scale(n.pos[0], x=True)
-            y = my_scale(n.pos[1], y=True)
-            gfxdraw.filled_circle(screen, int(x), int(y), radius, Color(189, 74, 184))
-            gfxdraw.aacircle(screen, int(x), int(y), radius, Color(255, 255, 255))
-
-            id_srf = FONT.render(str(n.id), True, Color(255, 255, 255))
-            rect = id_srf.get_rect(center=(x, y))
-            screen.blit(id_srf, rect)
-
-
-    def main(self):
-        self.screen = pygame.transform.scale(pygame.image.load("pokemon.png"), (screen.get_width(), screen.get_height()))

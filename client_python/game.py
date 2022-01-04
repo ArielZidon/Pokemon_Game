@@ -17,40 +17,29 @@ class game:
     def up_to_serv(self, pokemons=None, agents=None, graph=None) -> None:
 
         if graph != None:
-            self.getGraph(graph)
+            graph_O = json.loads(graph)
+            for n in graph_O["Nodes"]:
+                if "pos" in n:
+                    data = n["pos"].split(',')
+                    self.graph.add_node(n["id"], (float(data[0]), float(data[1]), float(data[2])))
+
+            for e in graph_O["Edges"]:
+                self.graph.add_edge(int(e["src"]), int(e["dest"]), float(e["w"]))
 
         if agents != None:
-            self.getAgent(agents)
+            self.agents = []
+            agents_O = json.loads(agents)
+            for i in agents_O['Agents']:
+                self.agents.append(agent(i['Agent']))
 
         if pokemons != None:
-            self.get_pokemon(pokemons)
+            self.pokemons.clear()
+            pokemons_obj = json.loads(pokemons)
+            for i in pokemons_obj['Pokemons']:
+                p = pokemon(i['Pokemon'])
+                self.pok_pos(p)
+                self.pokemons.append(p)
 
-
-    # get all the argonents from server
-
-    def getGraph(self,graph):
-        graph_O = json.loads(graph)
-        for n in graph_O["Nodes"]:
-            if "pos" in n:
-                data = n["pos"].split(',')
-                self.graph.add_node(n["id"], (float(data[0]), float(data[1]), float(data[2])))
-
-        for e in graph_O["Edges"]:
-            self.graph.add_edge(int(e["src"]), int(e["dest"]), float(e["w"]))
-
-    def getAgent(self,agents):
-        self.agents = []
-        agents_O = json.loads(agents)
-        for i in agents_O['Agents']:
-            self.agents.append(agent(i['Agent']))
-
-    def get_pokemon(self,pokemons):
-        self.pokemons.clear()
-        pokemons_obj = json.loads(pokemons)
-        for i in pokemons_obj['Pokemons']:
-            p = pokemon(i['Pokemon'])
-            self.pok_pos(p)
-            self.pokemons.append(p)
 
     def pok_pos(self, pok: pokemon) -> None:
         for node1 in self.graph.nodes:
@@ -73,10 +62,10 @@ class game:
 
     def distancePokNode(self, node1: Node, pok: pokemon):
         dis = m.sqrt(pow(node1.pos[0] - pok.pos[0], 2) + pow(node1.pos[1] - pok.pos[1], 2))
-<<<<<<< HEAD
-        return dis
-=======
         return dis
 
-    # def sent_agent(self,pokemon:pokemon):
->>>>>>> af54fac5783418fbd1490ec680d7e87acca93d2d
+#
+# client.add_agent("{\"id\":0}")
+# # client.add_agent("{\"id\":1}")
+# # client.add_agent("{\"id\":2}")
+# # client.add_agent("{\"id\":3}")
