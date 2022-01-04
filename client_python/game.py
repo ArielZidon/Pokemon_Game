@@ -73,4 +73,10 @@ class game:
 
     def distancePokNode(self, node1: Node, pok: pokemon):
         dis = m.sqrt(pow(node1.pos[0] - pok.pos[0], 2) + pow(node1.pos[1] - pok.pos[1], 2))
+<<<<<<< HEAD
         return dis
+=======
+        return dis
+
+    # def sent_agent(self,pokemon:pokemon):
+>>>>>>> af54fac5783418fbd1490ec680d7e87acca93d2d
