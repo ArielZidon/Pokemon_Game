@@ -37,7 +37,7 @@ class graphGame:
         POKEMON1 = pygame.transform.scale(pygame.image.load("pokemon1.png"), (40, 40))
         POKEMON2 = pygame.transform.scale(pygame.image.load("pokemon2.png"), (40, 40))
         POKEMON3 = pygame.transform.scale(pygame.image.load("pokemon3.png"), (40, 40))
-        self.ASH = pygame.transform.scale(pygame.image.load("ash.png"), (40, 40))
+        self.ASH = pygame.transform.scale(pygame.image.load("ash.png"), (60, 60))
         self.LIST = (POKEMON1, POKEMON2, POKEMON3)
         self.min_x = float('inf')
         self.min_y = float('inf')
@@ -86,26 +86,38 @@ class graphGame:
     def draw_agent(self):
         agents = self.game.agents
         for agent in agents:
-            pygame.draw.circle(self.screen, Color(122, 61, 23),
-                               (int(agent.pos[0]), int(agent.pos[1])), 10)
+            x, y = agent.pos[0],agent.pos[1]
+            x = self.my_scale(float(x), x = True)
+            y = self.my_scale(float(y), y = True)
+            self.screen.blit(self.ASH, (int(x) - 28, int(y) - 28))
+
 
     def draw_pokemon(self):
         pokemons = self.game.pokemons
         for p in pokemons:
-            pygame.draw.circle(self.screen, Color(0, 255, 255), (int(p.pos.x), int(p.pos.y)), 10)
-            # self.screen.blit(self.POKEMON, (int(p.pos.x) - 18, int(p.pos.y) - 18))
+            x, y = p.pos[0], p.pos[1]
+            x = self.my_scale(float(x), x=True)
+            y = self.my_scale(float(y), y=True)
+            self.screen.blit(self.LIST[2], (int(x) - 18, int(y) - 18))
+
 
     def draw_move(self):
         number_of_move = MOVE_FONT.render("Move: " + str(client.move), 1, WHITE)
-        self.screen.blit(number_of_move, (self.screen.get_width() - 110, self.screen.get_height() - 30))
+        self.screen.blit(number_of_move, (self.screen.get_width() - 500, self.screen.get_height() - 30))
 
 
     def main(self):
-        self.screen.blit(self.POKEMON, [0,0])
-        print(self.screen.get_width(), self.screen.get_height())
+        self.screen.fill(BLACK)
+        back = pygame.transform.scale(pygame.image.load("pokemon.png"),
+                                           (self.screen.get_width(), self.screen.get_height()))
+        self.screen.blit(back, [0,0])
+        # move = client.get_info().split(",")
+        # move = move[2].split(":")[1]
         self.draw_edges()
         self.draw_node()
         self.draw_agent()
+        self.draw_pokemon()
+        self.draw_move()
         display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
