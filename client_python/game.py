@@ -63,4 +63,4 @@ class game:
         dis = m.sqrt(pow(node1.pos[0] - pok.pos[0], 2) + pow(node1.pos[1] - pok.pos[1], 2))
         return dis
 
-    def sent_agent(self,pokemon:pokemon):
+    # def sent_agent(self,pokemon:pokemon):

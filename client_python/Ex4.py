@@ -17,8 +17,6 @@ game.up_to_serv(client.get_pokemons(), client.get_agents(), client.get_graph())
 
 print(game.__dict__)
 
-# gui = GUI(game)
-
 client.start()
 while client.is_running() == 'true':
     size = len(game.graph.nodes)
