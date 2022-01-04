@@ -1,34 +1,13 @@
-from DiGraph import DiGraph
-from GraphAlgo import GraphAlgo
+import math as m
+from DiGraph import *
 from argoments import *
 import json
-from client import *
-from client import *
-from GraphAlgo import GraphAlgo
-from types import SimpleNamespace
-from client import Client
-import json
-from pygame import gfxdraw
-import pygame
 from pygame import *
-
-import subprocess
-import sys
-
 from client import Client
 
-# """sys.argv[1]"""
-# subprocess.Popen(['powershell.exe', f'java -jar Ex4_Server_v0.0.jar {0}'])
-# # default port
-# PORT = 6666
-# # server host (default localhost 127.0.0.1)
-# HOST = '127.0.0.1'
+epsilon = 0.0000001
 client = Client()
 
-
-# client.start_connection(HOST, PORT)
-# client.add_agent("{\"id\":0}")
-#
 
 class game:
     def __init__(self) -> None:
@@ -38,7 +17,6 @@ class game:
 
     def up_to_serv(self, pokemons=None, agents=None, graph=None) -> None:
         if graph != None:
-            self.graph = DiGraph()
             graph_O = json.loads(graph)
             for n in graph_O["Nodes"]:
                 if "pos" in n:
@@ -56,11 +34,33 @@ class game:
 
         if pokemons != None:
             self.pokemons.clear()
-            pokemons_O = json.loads(pokemons)
-            for i in pokemons_O['Pokemons']:
-                self.pokemons.append(i['Pokemon'])
-            # self.pokemons
-            # self.pokemons.append(p)
+            pokemons_obj = json.loads(pokemons)
+            for i in pokemons_obj['Pokemons']:
+                p = pokemon(i['Pokemon'])
+                self.pok_pos(p)
+                self.pokemons.append(p)
 
+    def pok_pos(self, pok: pokemon) -> None:
+        for node1 in self.graph.nodes:
+            for node2 in self.graph.nodes:
+                dis1 = self.distanceNodes(self.graph.nodes[node1], self.graph.nodes[node2])
+                dis2 = (self.distancePokNode(self.graph.nodes[node1], pok) + self.distancePokNode(
+                    self.graph.nodes[node2], pok))
+                if abs(dis1 - dis2) <= epsilon:
+                    if pok.type == -1:
+                        pok.src = min(node1, node2)
+                        pok.dest = max(node1, node2)
+                    else:
+                        pok.src = max(node1, node2)
+                        pok.dest = min(node1, node2)
+                    return
 
-    def pokemon(self,pokemon):
+    def distanceNodes(self, node1: Node, node2: Node):
+        dis = m.sqrt(pow(node1.pos[0] - node2.pos[0], 2) + pow(node1.pos[1] - node2.pos[1], 2))
+        return dis
+
+    def distancePokNode(self, node1: Node, pok: pokemon):
+        dis = m.sqrt(pow(node1.pos[0] - pok.pos[0], 2) + pow(node1.pos[1] - pok.pos[1], 2))
+        return dis
+
+    def sent_agent(self,pokemon:pokemon):
