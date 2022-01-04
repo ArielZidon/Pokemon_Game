@@ -11,9 +11,11 @@ PORT = 6666
 # server host (default localhost 127.0.0.1)
 HOST = '127.0.0.1'
 client = Client()
+game = game()
 client.start_connection(HOST, PORT)
 client.add_agent("{\"id\":0}")
-game = game()
-game.builder(client.get_pokemons(), client.get_agents(), client.get_graph())
+
+game.up_to_serv(client.get_pokemons(), client.get_agents(), client.get_graph())
 
 print(game.__dict__)
+

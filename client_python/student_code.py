@@ -9,6 +9,8 @@ import json
 from pygame import gfxdraw
 import pygame
 from pygame import *
+from game import game
+
 
 # init pygame
 WIDTH, HEIGHT = 1080, 720
@@ -151,6 +153,7 @@ while client.is_running() == 'true':
 
     # refresh rate
     clock.tick(60)
+    G = game().get_graph()
 
     # choose next edge
     for agent in agents:

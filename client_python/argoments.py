@@ -12,13 +12,17 @@ class agent:
 
         self.stations = []
 
+    def __repr__(self) -> str:
+        return f'{self.id} ' f'{self.value},' f'{self.src}' f'{self.dest}' f'{self.speed}' f'{self.pos}'
+
 
 class pokemon:
     def __init__(self, data: dict) -> None:
         self.value = data['value']
         self.type = int(data['type'])
-        xyz = str(data['pos']).split(',')
+        p = str(data['pos']).split(',')
         self.pos = []
-        for n in xyz:
-            print(n)
-            self.pos.append(float(n))
+        for i in p:
+            self.pos.append(float(i))
+        self.src = None
+        self.dest = None
