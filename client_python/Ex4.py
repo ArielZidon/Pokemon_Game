@@ -1,6 +1,3 @@
-import subprocess
-from game import game
-from client import Client
 from graphGame import *
 
 """sys.argv[1]"""
@@ -20,7 +17,9 @@ client.start()
 
 while client.is_running():
     game.up_to_serv(client.get_pokemons(), client.get_agents(), client.get_graph())
-    drow.main()
+    move = client.get_info().split(",")
+    move = move[2].split(":")[1]
+    drow.main(move)
     for agent in game.agents:
         if agent.dest == -1:
             next_node = (agent.src - 1) % len(game.graph.nodes)

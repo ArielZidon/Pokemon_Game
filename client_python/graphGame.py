@@ -2,7 +2,6 @@ from pygame import gfxdraw
 from pygame import *
 from game import *
 import pygame
-from client import *
 from pygame.locals import *
 pygame.font.init()
 pygame.mixer.init()
@@ -98,40 +97,50 @@ class graphGame:
             x, y = p.pos[0], p.pos[1]
             x = self.my_scale(float(x), x=True)
             y = self.my_scale(float(y), y=True)
-            self.screen.blit(self.LIST[2], (int(x) - 18, int(y) - 18))
+            if(p.type>0):
+                self.screen.blit(self.LIST[2], (int(x) - 18, int(y) - 18))
+            else:
+                self.screen.blit(self.LIST[1], (int(x) - 18, int(y) - 18))
 
+    def draw_move(self,move):
+        number_of_move = MOVE_FONT.render("Move: " + str(move),1, WHITE)
+        self.screen.blit(number_of_move, (self.screen.get_width() - 110, self.screen.get_height() - 30))
 
-    def draw_move(self):
-        number_of_move = MOVE_FONT.render("Move: " + str(client.move), 1, WHITE)
-        self.screen.blit(number_of_move, (self.screen.get_width() - 500, self.screen.get_height() - 30))
+    def draw_Button(self):
+        pygame.draw.rect(self.screen, button.color, button.rect)
+        button_text = FONT.render("Exit", True, (210, 56, 23))
+        self.screen.blit(button_text, (button.rect.x + 20, button.rect.y + 10))
 
-
-    def main(self):
-        self.screen.fill(BLACK)
-        back = pygame.transform.scale(pygame.image.load("pokemon.png"),
-                                           (self.screen.get_width(), self.screen.get_height()))
-        self.screen.blit(back, [0,0])
-        # move = client.get_info().split(",")
-        # move = move[2].split(":")[1]
-        self.draw_edges()
-        self.draw_node()
-        self.draw_agent()
-        self.draw_pokemon()
-        self.draw_move()
-        display.update()
+    def main(self,move):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
                 return False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if button.rect.collidepoint(event.pos):
+                    button.press()
+                    if button.pressed:
+                        pygame.quit()
+                        exit(0)
 
+        self.screen.fill(BLACK)
+        back = pygame.transform.scale(pygame.image.load("pokemon.png"),
+                                      (self.screen.get_width(), self.screen.get_height()))
+        self.screen.blit(back, [0, 0])
+        self.draw_edges()
+        self.draw_node()
+        self.draw_agent()
+        self.draw_pokemon()
+        self.draw_move(move)
+        self.draw_Button()
+        display.update()
 
 class Button:
     def __init__(self, color, rect: pygame.Rect):
         self.color = color
         self.rect = rect
         self.pressed = False
-
     def press(self):
         self.pressed = not self.pressed
 
