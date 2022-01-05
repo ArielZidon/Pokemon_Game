@@ -3,6 +3,7 @@ from pygame import *
 from game import *
 import pygame
 from pygame.locals import *
+from Pokemon_im import *
 pygame.font.init()
 pygame.mixer.init()
 
@@ -15,7 +16,8 @@ pygame.init()
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (250, 0, 0)
-YELLOW = (255, 255, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
 
 MOVE_FONT = pygame.font.SysFont('comicsans', 20)
 
@@ -67,9 +69,9 @@ class graphGame:
             gfxdraw.filled_circle(self.screen, int(x), int(y), radius, Color(64, 80, 174))
             gfxdraw.aacircle(self.screen, int(x), int(y), radius, Color(255, 255, 255))
 
-            # id_srf = FONT.render(str(n.id), True, Color(255, 255, 255))
-            # rect = id_srf.get_rect(center=(x, y))
-            # self.screen.blit(id_srf, rect)
+            id_srf = FONT.render(str(n.key), True, Color(255, 255, 255))
+            rect = id_srf.get_rect(center=(x, y))
+            self.screen.blit(id_srf, rect)
 
     def draw_edges(self):
         graph = self.game.graph
@@ -102,16 +104,24 @@ class graphGame:
             else:
                 self.screen.blit(self.LIST[1], (int(x) - 18, int(y) - 18))
 
-    def draw_move(self,move):
-        number_of_move = MOVE_FONT.render("Move: " + str(move),1, WHITE)
+    def draw_move(self, move: int):
+        number_of_move = MOVE_FONT.render("Move: " + str(move), 1, WHITE)
         self.screen.blit(number_of_move, (self.screen.get_width() - 110, self.screen.get_height() - 30))
+
+    def draw_ttl(self, ttl: int):
+        number_of_move = MOVE_FONT.render("Time to live: " + str(ttl) + " second", 1, BLUE)
+        self.screen.blit(number_of_move, (10, self.screen.get_height() - 30))
+
+    def draw_grade(self, grade: int):
+        number_of_move = MOVE_FONT.render("Grade: " + str(grade), 1, GREEN)
+        self.screen.blit(number_of_move, (self.screen.get_width() - 110, 10))
 
     def draw_Button(self):
         pygame.draw.rect(self.screen, button.color, button.rect)
         button_text = FONT.render("Exit", True, (210, 56, 23))
         self.screen.blit(button_text, (button.rect.x + 20, button.rect.y + 10))
 
-    def main(self,move):
+    def main(self, move, ttl, grade):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -133,6 +143,8 @@ class graphGame:
         self.draw_agent()
         self.draw_pokemon()
         self.draw_move(move)
+        self.draw_ttl(ttl)
+        self.draw_grade(grade)
         self.draw_Button()
         display.update()
 

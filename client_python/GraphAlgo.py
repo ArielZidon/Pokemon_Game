@@ -1,8 +1,4 @@
-from typing import List
-from Node import Node
 from DiGraph import DiGraph
-import json
-import copy
 
 class GraphAlgo():
     def __init__(self,graph=DiGraph()) -> None:
@@ -13,97 +9,12 @@ class GraphAlgo():
     def get_graph(self) -> DiGraph():
         return self.graph
 
-    def load_from_json(self, file_name: str) -> bool:
-        try:
-            dict={}
-            graph_res = self.graph
-            with open(file_name,"r") as f:
-                dict=json.load(f)
-
-            for n in dict["Nodes"]:
-                if "pos" in n:
-                    data = n["pos"].split(',')
-                    graph_res.add_node(n["id"],(data[0],data[1],data[2]))
-                else:
-                    graph_res.add_node(n["id"])
-
-            for e in dict["Edges"]:
-                graph_res.add_edge(e["src"],e["dest"],e["w"])
-
-        except IOError as e:
-            print(e)
-            return False
-        self.graph = graph_res
-        return True
-
-
-
-    def save_to_json(self, file_name: str) -> bool:
-        graph_dict = {"Edges": [], "Nodes": []}
-        for e in self.graph.edges:
-            graph_dict["Edges"].append(
-                {"src": e[0],"w": self.graph.edges[e],"dest": e[1]})
-        for n in self.graph.nodes.values():
-            id = n.key
-            if(n.pos!=None):
-                pos = f'{n.pos[0]},{n.pos[1]},{n.pos[2]}'
-                graph_dict["Nodes"].append({"pos": pos, "id": id})
-            else:
-                graph_dict["Nodes"].append({"pos": None, "id": id})
-        try:
-            with open(file_name,"w") as f:
-                json.dump(graph_dict, fp=f, indent=2, default=lambda o:o.__dict__)
-        except IOError as e:
-            print(e)
-            return False
-        return True
-
-
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         self.getdijk(id1)
         self.dijkstra.addPath(id2)
         start = self.dijkstra.D[id2]
         end = self.dijkstra.roads[id2]
         return (start,end)
-
-
-    def TSP(self, node_lst: List[int]) -> (List[int], float):
-        try:
-            chosen,road = self.inf,[]
-            for i in node_lst:
-                self.getdijk(i)
-                path = []
-                new = self.checking_r(i,copy.deepcopy(node_lst), path)
-                if new < chosen:
-                    chosen,road = new,path
-                else:
-                    continue
-            return (road,chosen)
-        except:
-            return ([],self.inf)
-
-
-    def checking_r(self, a: int, b: list, c: list):
-        c.append(a)
-        b.remove(a)
-        count = 0
-        while len(b):
-            low = self.inf
-            for j in b:
-                if self.dijkstra.D[j]< low:
-                    low,ind = self.dijkstra.D[j],j
-            count += low
-            path,f = self.shortest_path(a, ind)[1],True
-            for j in path:
-                if not f:
-                    c.append(j)
-                else:
-                    f = False
-            a = ind
-            self.getdijk(a)
-            b.remove(ind)
-        return count
-
 
 
     def centerPoint(self) -> (int, float):

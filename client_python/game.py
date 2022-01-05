@@ -4,7 +4,8 @@ from argoments import *
 import json
 from client import Client
 
-epsilon = 0.0000001
+
+epsilon = 0.000000001
 client = Client()
 
 
@@ -48,12 +49,18 @@ class game:
                 dis2 = (self.distancePokNode(self.graph.nodes[node1], pok) + self.distancePokNode(
                     self.graph.nodes[node2], pok))
                 if abs(dis1 - dis2) <= epsilon:
+                    src = None
+                    dest = None
                     if pok.type == -1:
-                        pok.src = min(node1, node2)
-                        pok.dest = max(node1, node2)
-                    else:
-                        pok.src = max(node1, node2)
                         pok.dest = min(node1, node2)
+                        pok.src = max(node1, node2)
+                    else:
+                        pok.dest = max(node1, node2)
+                        pok.src = min(node1, node2)
+                    if self.isEdge(src, dest):
+                        pok.src = src
+                        pok.dest = dest
+                        return
                     return
 
     def distanceNodes(self, node1: Node, node2: Node):
@@ -64,8 +71,54 @@ class game:
         dis = m.sqrt(pow(node1.pos[0] - pok.pos[0], 2) + pow(node1.pos[1] - pok.pos[1], 2))
         return dis
 
-#
-# client.add_agent("{\"id\":0}")
-# # client.add_agent("{\"id\":1}")
-# # client.add_agent("{\"id\":2}")
-# # client.add_agent("{\"id\":3}")
+    def isEdge(self, src, dest) -> bool:
+        return (src, dest) in self.graph.edges
+
+
+
+
+    # def candidateAgent(self, p: pokemon) -> list:
+    #     temp = []
+    #     for a in self.agents.value():
+    #         if len(a.stations) == 0:
+    #             temp.append(a.id)
+    #     if len(temp) == 0:
+    #         temp.append(self.counter % len(self.agents))
+    #         self.counter += 1
+    #     return temp
+    # #
+    # def calc(self, a: agent, p: pokemon):
+    #     print(p.src, p.dest)
+    #     if len(a.stations):
+    #         distance = self.shortest_path(a.stations[-1], p.src)
+    #     else:
+    #         distance = self.shortest_path(a.src, p.src)
+    #     time = (distance[0] / a.speed)
+    #     return (time, distance)
+    #
+    # def allocateAgen(self, p: pokemon) -> None:
+    #     candidAgents = self.candidateAgent(p)
+    #     relevant = float('inf')
+    #     candid = path = None
+    #     for a in candidAgents:
+    #         cal = self.calc(self.agents[a], p)
+    #         if cal[0] < relevant:
+    #             candid = self.agents[a].id
+    #             path = cal[1][1]
+    #     path.pop(0)
+    #     self.agents[candid].stations += path
+    #     self.agents[candid].stations.append(p.dest)
+    #     p.agent = candid
+    #
+    # def allocateAllpokemon(self) -> None:
+    #     for p in self.pokemons:
+    #         if p.agent == None:
+    #             self.allocateAgen(p)
+    #
+    # def CMD(self, client: Client) -> None:
+    #     for a in self.agents.value():
+    #         if a.dest == -1 and len(a.stations) != 0:
+    #             print(f"a = {a}\n src = {a.src}")
+    #             client.choose_next_edge(
+    #                 '{"agent_id":' + str(a.id) + ', "next_node_id":' + str(a.stations[0]) + '}')
+    #             a.stations.pop(0)

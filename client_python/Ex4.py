@@ -1,4 +1,6 @@
 from graphGame import *
+from send_Agent import *
+import time
 
 """sys.argv[1]"""
 # default port
@@ -9,24 +11,25 @@ client = Client()
 client.start_connection(HOST, PORT)
 
 game = game()
-client.add_agent("{\"id\":0}")
-
+def addAgents():
+    size = int(json.loads(client.get_info())["GameServer"]["agents"])
+    for i in range(size):
+        client.add_agent("{\"id\":" + str(i) + "}")
+addAgents()
 game.up_to_serv(client.get_pokemons(), client.get_agents(), client.get_graph())
 drow = graphGame(game)
+G = send_Agent(game)
 client.start()
 
 while client.is_running():
     game.up_to_serv(client.get_pokemons(), client.get_agents(), client.get_graph())
+    ttl = int(client.time_to_end())
     move = client.get_info().split(",")
     move = move[2].split(":")[1]
-    drow.main(move)
-    for agent in game.agents:
-        if agent.dest == -1:
-            next_node = (agent.src - 1) % len(game.graph.nodes)
-            client.choose_next_edge(
-                '{"agent_id":' + str(agent.id) + ', "next_node_id":' + str(next_node) + '}')
-            ttl = client.time_to_end()
-            print(ttl, client.get_info())
+    grade = client.get_info().split(",")
+    grade = grade[3].split(":")[1]
+    drow.main(move, int(ttl/1000), grade)
+    # print(ttl, client.get_info())
+    G.cmd(client)
+    time.sleep(0.0448)
     client.move()
-
-
