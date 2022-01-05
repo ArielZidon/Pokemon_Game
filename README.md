@@ -25,6 +25,13 @@ In addition, we created the class "GraphAlgo" to load the graph from the Json fi
 We created the class "Node" which represents a node of the graph, and the class Digraph which represents a graph.<br/>
 
 # Graph's Algorithms
+## Shortest Path
+
+## TSP
+
+## Center
+
+## Dijkstra
 
 # UML Diagram
 
