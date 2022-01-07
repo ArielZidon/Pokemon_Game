@@ -31,7 +31,7 @@ class send_Agent():
         if t == 1:
             if len(pick) <= 2:
                 if self.game.agents[0].speed >= 3:
-                    time.sleep(0.03)
+                    time.sleep(0.02)
                 else:
                     time.sleep(0.03)
             else:
@@ -73,6 +73,7 @@ class send_Agent():
                     pok.dest = 6
 
                 s = GA.shortest_path(agent.src,pok.src)
+                # t = GA.shortest_path(pok.src,pok.dest)
                 pick = s[0],s[1],pok.value
 
                 w = (pok.value/(s[0]+1))
@@ -90,24 +91,18 @@ class send_Agent():
 
 
 
-
-
     # ////////////////////////////////////////////more then one/////////////////////////////////////////////////////////
 
     def cmd_group(self, client: Client, t):
-        pick = []
 
         for pok in self.game.pokemons:
-            pick = self.pick_age(pok)
-
-        for i in pick:
-            client.choose_next_edge(
-                '{"agent_id":' + str(pick[0]) + ', "next_node_id":' + str(pick[1]) + '}')
-            time.sleep(0.045)
+            self.pick_age(pok,client,t)
+        time.sleep(0.025)
 
 
-    def pick_age(self, pokemon):
+    def pick_age(self, pokemon,client,t):
         if pokemon.mode == 0:
+            pokemon.mode =1
             G = self.game.graph
             GA = GraphAlgo(G)
             pick = []
@@ -130,13 +125,20 @@ class send_Agent():
                         min = w
                         res = pick[1]
                         a = agent
+                        res[0] = a.id
+                        res.append(pokemon.dest)
                         i += 1
                         if i < max:
                             continue
 
-            res.append(pokemon.dest)
-            res[0] = a.id
-            return res
+            client.choose_next_edge(
+                '{"agent_id":' + str(res[0]) + ', "next_node_id":' + str(res[1]) + '}')
+
+
+
+
+
+
 
   # j = 0
   #       for pok in self.game.pokemons:

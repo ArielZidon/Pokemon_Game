@@ -36,7 +36,7 @@ while client.is_running():
     move = move[2].split(":")[1]
     grade = client.get_info().split(",")
     grade = grade[3].split(":")[1]
-    drow.main(move, int(ttl/1000), grade)
+    drow.main(move, int(ttl/1000), grade,size)
     print(ttl, client.get_info(),game.agents[0].speed)
     if size == 1:
         G.cmd_solo(client,t)
@@ -45,22 +45,20 @@ while client.is_running():
     # time.sleep(0.043)
     client.move()
 
-
-
-
     # 0 V - 100
-    # 1 V - 363
-    # 2 V - 125
-    # 3 V - 677
-    # 4 V - 100
-    # 5 V - 442
-    # 6 V - 52
-    # 7 V - 236
-    # 8 V - 52
-    # 9 V - 283
-    # 10 V - 79
-
+    # 1 V - 437
+    # 2 V - 161
+    # 3 V - 833
+    # 4 V - 177
+    # 5 V - 573
+    # 6 V - 79
+    # 7 V - 286
+    # 8 V - 110
+    # 9 V - 458
+    # 10 V - 181
+    # 11 V - 1293
     # 12 V - 40
-
-    # 15 V - 173
+    # 13 V - 246
+    # 14 V - 96
+    # 15 V - 250
 

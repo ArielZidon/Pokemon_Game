@@ -4,12 +4,11 @@ This class represents a directed weighed graph
 Graph's values: nodes, edges
 """
 import random
-
-from Node import Node
-
+from Node import *
 
 class DiGraph():
-    # constructor
+
+
     def __init__(self):
         self.nodes = {}
         self.edges = {}
