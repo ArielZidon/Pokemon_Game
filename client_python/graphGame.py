@@ -3,7 +3,7 @@ from pygame import *
 from game import *
 import pygame
 from pygame.locals import *
-from Pokemon_im import *
+#from Pokemon_im import *
 pygame.font.init()
 pygame.mixer.init()
 
