@@ -2,7 +2,8 @@ import random
 
 from Node import Node
 
-class DiGraph():
+
+class DiGraph(object):
     def __init__(self):
         self.nodes = {}
         self.edges = {}
