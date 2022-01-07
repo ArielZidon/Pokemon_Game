@@ -24,6 +24,12 @@ We read the Json file and create all the above. To do this we created the class 
 In addition, we created the class "GraphAlgo" to load the graph from the Json file and to implement algorithms on it.</br>
 We created the class "Node" which represents a node of the graph, and the class Digraph which represents a graph.<br/>
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/93203695/148563497-cb051da1-5cc2-4030-b855-cb11963f3176.gif" alt="Gif"  width="450" height="400">
+</a>
+</p>
+
+
 # Graph's Algorithms
 ## Shortest Path
 
@@ -34,6 +40,12 @@ We created the class "Node" which represents a node of the graph, and the class 
 # UML Diagram
 
 # Getting Started
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/93203695/148564696-3d332218-8a00-4bcb-ba31-2b8c43a0d59d.gif" alt="Gif"  width="600" height="400">
+</a>
+</p>
+
 ## Installation
 In order to install the program you need to follow these steps:
 - Download/clone the project from git.
@@ -54,3 +66,5 @@ In order to run the program follow these steps:
   just press the "exit" button at the left upper corner of the window. 
 
 # Screenshots
+
+# Our Scores On The cases 0 - 15
