@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class client
+class DiGraph
+class Ex4
+class game
+class GraphAlgo
+class graphGame
+class Node
+class send_Agent
+class argoments
+
+DiGraph o-- Node
+GraphAlgo <-- DiGraph
+game o-- argoments
+game <-- client
+game <-- DiGraph
+Ex4 <-- send_Agent
+Ex4 <-- graphGame
+graphGame <-- game
+graphGame <-- client
+send_Agent <-- GraphAlgo
+send_Agent <-- game
+send_Agent <-- client
+
+@enduml
