@@ -1,9 +1,9 @@
 import math
-
 from GraphAlgo import *
 from DiGraph import *
 from game import game
 from client import Client
+import time
 epsilon = 0.0000001
 pokk = 0
 
@@ -14,61 +14,156 @@ class send_Agent():
         self.client = Client()
         self.dijkstra = dijkstra(self.game.graph)
         self.inf = float('inf')
+        self.fast_move = time.sleep(0.035)
+        self.low_move = time.sleep(0.1)
 
-    def cmd(self,client:Client):
+
+    def cmd_solo(self,client:Client,t):
+        pick = []
+
         for agent in self.game.agents:
             if agent.dest==-1:
                 pick = self.pick_pok(agent)
-                pick.append(self.game.pokemons[pokk].dest)
-                print(pick)
                 for i in pick:
-                    client.choose_next_edge('{"agent_id":' + str(agent.id) + ', "next_node_id":' + str(i) + '}')
+                    client.choose_next_edge('{"agent_id":' + str(agent.id) + ', "next_node_id":' + str(pick[1]) + '}')
+
+        # ///////////////stop singel//////////////////////////////
+        if t == 1:
+            if len(pick) <= 2:
+                if self.game.agents[0].speed >= 3:
+                    time.sleep(0.03)
+                else:
+                    time.sleep(0.03)
+            else:
+                if self.game.agents[0].speed <= 3:
+                    time.sleep(0.6)
+                else:
+                    time.sleep(0.05)
+
+        else:
+            if len(pick) <= 2:
+                if self.game.agents[0].speed >= 2:
+                    time.sleep(0.03)
+                else:
+                    time.sleep(0.03)
+            else:
+                if self.game.agents[0].speed <= 2:
+                    time.sleep(0.6)
+                else:
+                    time.sleep(0.06)
+    # //////////////////////////////////////////////////////////////
 
     def pick_pok(self,agent):
-        min = float('inf')
         G = self.game.graph
         GA = GraphAlgo(G)
-        counter = 0
+        pick = []
+        res = []
+        min = 0
+        i = 0
+        max = 0
+        p = None
+        for pok in self.game.pokemons:
+            max+=1
 
         for pok in self.game.pokemons:
-            pick =[]
-            counter += 1
-            s = GA.shortest_path(agent.src,pok.src)
-            if pok.src == agent.src:
-                pokk = counter
-                return s[1]
-            good = s[0]
-            if min>good:
-                min = good
-                pick = s[1]
-                pokk = counter
-            return pick
+            if pok.mode == 0:
+
+                if pok.src == None or agent.src == None:
+                    pok.src = 7
+                    pok.dest = 6
+
+                s = GA.shortest_path(agent.src,pok.src)
+                pick = s[0],s[1],pok.value
+
+                w = (pok.value/(s[0]+1))
+
+                if min<w:
+                    min = w
+                    res = pick[1]
+                    p = pok
+                    i+=1
+                    if i<max:
+                        continue
+        res.append(p.dest)
+        return res
 
 
 
 
 
 
+    # ////////////////////////////////////////////more then one/////////////////////////////////////////////////////////
+
+    def cmd_group(self, client: Client, t):
+        pick = []
+
+        for pok in self.game.pokemons:
+            pick = self.pick_age(pok)
+
+        for i in pick:
+            client.choose_next_edge(
+                '{"agent_id":' + str(pick[0]) + ', "next_node_id":' + str(pick[1]) + '}')
+            time.sleep(0.045)
 
 
+    def pick_age(self, pokemon):
+        if pokemon.mode == 0:
+            G = self.game.graph
+            GA = GraphAlgo(G)
+            pick = []
+            res = []
+            min = 0
+            i = 0
+            max = 0
+            a = None
+
+            for AG in self.game.agents:
+                max += 1
+
+            for agent in self.game.agents:
+                    s = GA.shortest_path(agent.src, pokemon.src)
+                    pick = s[0], s[1], pokemon.value
+
+                    w = (pokemon.value / (s[0] + 1))*agent.speed
+
+                    if min < w:
+                        min = w
+                        res = pick[1]
+                        a = agent
+                        i += 1
+                        if i < max:
+                            continue
+
+            res.append(pokemon.dest)
+            res[0] = a.id
+            return res
+
+  # j = 0
+  #       for pok in self.game.pokemons:
+  #           if p.pos == pok.pos:
+  #               pok.mode = 1
+  #           i += 1
+  #           if i < 4:
+  #               continue
+  #       res.append(p.dest)
 
 
+# age = None
+# speed = 0
+# min = 0
+# for agent in self.game.agents:
+#     speed = agent.speed
+#     if speed > min:
+#         min = speed
+#         age = agent
 
-    # def cmd(self,client:Client):
-    #     for agent in self.game.agents:
-    #         G = self.game.graph
-    #         GA = GraphAlgo(G)
-    #         # pok = self.game.pokemons[0]
-    #         agent.dest = self.game.pokemons[1].src
-    #         list = GA.shortest_path(agent.src,agent.dest)
-    #         list[1].append(self.game.pokemons[1].dest)
-    #         # if self.game.pokemons[0]!=pok:
-    #         #     agent.dest = self.game.pokemons[0].src
-    #         #     list = GA.shortest_path(agent.src, agent.dest)
-    #         #     list[1].append(self.game.pokemons[0].dest)
-    #
-    #         print(list[1])
-    #         for i in list[1]:
-    #             client.choose_next_edge('{"agent_id":' + str(agent.id) + ', "next_node_id":' + str(i) + '}')
-    #
-
+# if len(pick) <= 2:
+#     if age.speed >= 3:
+#         time.sleep(0.028)
+#     else:
+#         time.sleep(0.028)
+# else:
+#     if age.speed <= 3:
+#         time.sleep(0.028)
+#     else:
+#         time.sleep(0.028)

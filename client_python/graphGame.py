@@ -9,7 +9,7 @@ pygame.mixer.init()
 
 
 WIDTH, HEIGHT = 1080, 720
-FPS = 60
+FPS = 20
 pygame.init()
 
 #colors

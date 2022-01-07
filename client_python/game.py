@@ -5,7 +5,7 @@ import json
 from client import Client
 
 
-epsilon = 0.000000001
+epsilon = 0.00000000001
 client = Client()
 
 
@@ -52,14 +52,17 @@ class game:
                     src = None
                     dest = None
                     if pok.type == -1:
-                        pok.dest = min(node1, node2)
-                        pok.src = max(node1, node2)
+                        dest = min(node1, node2)
+                        src = max(node1, node2)
                     else:
-                        pok.dest = max(node1, node2)
-                        pok.src = min(node1, node2)
+                        dest = max(node1, node2)
+                        src = min(node1, node2)
+
                     if self.isEdge(src, dest):
                         pok.src = src
                         pok.dest = dest
+                        # print(src)
+                        # print(dest)
                         return
                     return
 

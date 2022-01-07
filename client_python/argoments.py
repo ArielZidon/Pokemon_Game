@@ -10,10 +10,10 @@ class agent:
         self.pos = []
         for n in xyz:
             self.pos.append(float(n))
-        self.stations = []
+        self.road = []
 
     def __repr__(self) -> str:
-        return f'{self.id} ' f'{self.value},' f'{self.src}' f'{self.dest}' f'{self.speed}' f'{self.pos}'
+        f'{self.value},'
 
 
 class pokemon:
@@ -26,6 +26,7 @@ class pokemon:
             self.pos.append(float(i))
         self.src = None
         self.dest = None
+        self.mode = 0
 
     def __repr__(self) -> str:
-        return f'{self.pos} ' f'{self.type} 'f'{self.value}'
+        return f'{self.pos} ' f'{self.src} 'f'{self.dest} 'f'{self.type} 'f'{self.value}'
