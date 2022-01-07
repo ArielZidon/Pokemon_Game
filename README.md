@@ -27,16 +27,30 @@ We created the class "Node" which represents a node of the graph, and the class 
 # Graph's Algorithms
 ## Shortest Path
 
-## TSP
-
 ## Center
 
-## Dijkstra
+### Dijkstra
 
 # UML Diagram
 
 # Getting Started
 ## Installation
+In order to install the program you need to follow these steps:
+- Download/clone the project from git.
+- Extract the downloaded zip file.
+- Open the project in Python environment workspace (we used PyCharm).
+  - Note(!!!): __Download the library pygame__.
+- Now that you have installed the project,
+follow the next section to understand how to use the program.
+
 ## Usage
+In order to run the program follow these steps:
+- Open a new Terminal (if you use PyCharm, open the terminal at the lower toolbar)
+- Write the command : java -jar Ex4_Server_v0.0.jar "Case number"
+  - At the "Case number" just write a number between 0-15 (without the """)
+  - Press Enter, now the server is up.
+  - Run class Ex4
+  - If you would like to exit the program before it ends,
+  just press the "exit" button at the left upper corner of the window. 
 
 # Screenshots
