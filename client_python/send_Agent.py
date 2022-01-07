@@ -31,7 +31,7 @@ class send_Agent():
         if t == 1:
             if len(pick) <= 2:
                 if self.game.agents[0].speed >= 3:
-                    time.sleep(0.03)
+                    time.sleep(0.02)
                 else:
                     time.sleep(0.03)
             else:
