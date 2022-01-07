@@ -73,6 +73,7 @@ class send_Agent():
                     pok.dest = 6
 
                 s = GA.shortest_path(agent.src,pok.src)
+                # t = GA.shortest_path(pok.src,pok.dest)
                 pick = s[0],s[1],pok.value
 
                 w = (pok.value/(s[0]+1))
@@ -101,6 +102,7 @@ class send_Agent():
 
     def pick_age(self, pokemon,client,t):
         if pokemon.mode == 0:
+            pokemon.mode =1
             G = self.game.graph
             GA = GraphAlgo(G)
             pick = []
@@ -128,13 +130,11 @@ class send_Agent():
                         i += 1
                         if i < max:
                             continue
+
             client.choose_next_edge(
                 '{"agent_id":' + str(res[0]) + ', "next_node_id":' + str(res[1]) + '}')
 
-            # for agent in self.game.agents:
-            #     if agent.dest == -1:
-            #         client.choose_next_edge(
-            #             '{"agent_id":' + str(res[0]) + ', "next_node_id":' + str(res[1]) + '}')
+
 
 
 
