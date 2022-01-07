@@ -90,23 +90,16 @@ class send_Agent():
 
 
 
-
-
     # ////////////////////////////////////////////more then one/////////////////////////////////////////////////////////
 
     def cmd_group(self, client: Client, t):
-        pick = []
 
         for pok in self.game.pokemons:
-            pick = self.pick_age(pok)
-
-        for i in pick:
-            client.choose_next_edge(
-                '{"agent_id":' + str(pick[0]) + ', "next_node_id":' + str(pick[1]) + '}')
-            time.sleep(0.045)
+            self.pick_age(pok,client,t)
+        time.sleep(0.025)
 
 
-    def pick_age(self, pokemon):
+    def pick_age(self, pokemon,client,t):
         if pokemon.mode == 0:
             G = self.game.graph
             GA = GraphAlgo(G)
@@ -130,13 +123,22 @@ class send_Agent():
                         min = w
                         res = pick[1]
                         a = agent
+                        res[0] = a.id
+                        res.append(pokemon.dest)
                         i += 1
                         if i < max:
                             continue
+            client.choose_next_edge(
+                '{"agent_id":' + str(res[0]) + ', "next_node_id":' + str(res[1]) + '}')
 
-            res.append(pokemon.dest)
-            res[0] = a.id
-            return res
+            # for agent in self.game.agents:
+            #     if agent.dest == -1:
+            #         client.choose_next_edge(
+            #             '{"agent_id":' + str(res[0]) + ', "next_node_id":' + str(res[1]) + '}')
+
+
+
+
 
   # j = 0
   #       for pok in self.game.pokemons:

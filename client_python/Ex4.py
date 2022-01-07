@@ -36,7 +36,7 @@ while client.is_running():
     move = move[2].split(":")[1]
     grade = client.get_info().split(",")
     grade = grade[3].split(":")[1]
-    drow.main(move, int(ttl/1000), grade)
+    drow.main(move, int(ttl/1000), grade,size)
     print(ttl, client.get_info(),game.agents[0].speed)
     if size == 1:
         G.cmd_solo(client,t)
