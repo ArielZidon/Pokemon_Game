@@ -8,7 +8,6 @@ from pygame.locals import *
 pygame.font.init()
 pygame.mixer.init()
 from Pokemon_im import *
-
 client = Client()
 
 WIDTH, HEIGHT = 1080, 720

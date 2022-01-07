@@ -3,6 +3,7 @@ from client_python import DiGraph
 from client_python import GraphAlgo
 import os
 
+
 class testGraphAlgo(TestCase):
 
     def test_shortest_path(self):
