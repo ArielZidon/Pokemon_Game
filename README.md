@@ -83,3 +83,5 @@ In order to run the program follow these steps:
 You can see detailed information about the appearance of the project at the Wiki.
 
 # Our Scores On The cases 0 - 15
+
+# Computer specifications:
