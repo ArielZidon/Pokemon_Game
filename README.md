@@ -80,7 +80,8 @@ In order to run the program follow these steps:
 <img src="https://user-images.githubusercontent.com/93203695/148652088-2d8a0089-c7c9-486a-a446-a8380a03fc75.png">
 </p>
 
-You can see detailed information about the appearance of the project at the Wiki.
+## You can see detailed information about the appearance of the project at the Wiki:
+https://github.com/ArielZidon/Pokemon_Game/wiki/Visualization#a-short-video-of-the-game-running
 
 # Our Scores On The cases 0 - 15
 
