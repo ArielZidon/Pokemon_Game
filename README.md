@@ -46,6 +46,9 @@ dijkstra algorithm. https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 # UML Diagram
 
+![diagram-17363877052811065234](https://user-images.githubusercontent.com/93203695/148650907-a490945f-a800-4649-a439-005c9713a71a.png)
+
+
 # Getting Started
 
 <p align="center">
