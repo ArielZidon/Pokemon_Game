@@ -36,10 +36,13 @@ We created the class "Node" which represents a node of the graph, and the class 
 
 # Graph's Algorithms
 ## Shortest Path
+Finds the shortest path in the graph between any 2 nodes we want. (Receives source node and destination node)
 
 ## Center
+Finds the node with the smallest trajectory value toward all other graphite nodes.
 
 ### Dijkstra
+dijkstra algorithm. https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 # UML Diagram
 
@@ -69,8 +72,9 @@ In order to run the program follow these steps:
   - If you would like to exit the program before it ends,
   just press the "exit" button at the left upper corner of the window. 
 
-# Screenshots
+# Appearance
+### Short Clip:
 
-# Short Clip
+### Explanation of the appearance:
 
 # Our Scores On The cases 0 - 15
