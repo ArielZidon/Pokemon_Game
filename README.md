@@ -72,6 +72,15 @@ In order to run the program follow these steps:
   - At the "Case number" just write a number between 0-15 (without the """)
   - Press Enter, now the server is up.
   - Run class Ex4
+  
+  <p align="center">
+  <img src="https://user-images.githubusercontent.com/93203695/148653939-1da48a62-44c3-429c-b99f-6095d0efc3e4.png">
+  </p>
+    
+  __blue box - Enter the terminal.__        
+  __yellow box - The command to write.__ <br/>
+  __red box - run Ex4 class.__ <br/>
+            
   - If you would like to exit the program before it ends,
   just press the "exit" button at the left upper corner of the window. 
 
