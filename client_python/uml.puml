@@ -18,7 +18,7 @@ game <-- client
 game <-- DiGraph
 Ex4 <-- send_Agent
 Ex4 <-- graphGame
-graphGame <-- game
+Ex4 <-- game
 graphGame <-- client
 send_Agent <-- GraphAlgo
 send_Agent <-- game
