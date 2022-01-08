@@ -24,16 +24,35 @@ We read the Json file and create all the above. To do this we created the class 
 In addition, we created the class "GraphAlgo" to load the graph from the Json file and to implement algorithms on it.</br>
 We created the class "Node" which represents a node of the graph, and the class Digraph which represents a graph.<br/>
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/93203695/148563497-cb051da1-5cc2-4030-b855-cb11963f3176.gif" alt="Gif"  width="450" height="400">
+</a>
+</p>
+
+# General Algorithm
+## The Agent's Allocation
+
+## The Move Function
+
 # Graph's Algorithms
 ## Shortest Path
+Finds the shortest path in the graph between any 2 nodes we want. (Receives source node and destination node)
 
 ## Center
+Finds the node with the smallest trajectory value toward all other graphite nodes.
 
 ### Dijkstra
+dijkstra algorithm. https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 # UML Diagram
 
 # Getting Started
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/93203695/148564696-3d332218-8a00-4bcb-ba31-2b8c43a0d59d.gif" alt="Gif"  width="600" height="400">
+</a>
+</p>
+
 ## Installation
 In order to install the program you need to follow these steps:
 - Download/clone the project from git.
@@ -53,4 +72,9 @@ In order to run the program follow these steps:
   - If you would like to exit the program before it ends,
   just press the "exit" button at the left upper corner of the window. 
 
-# Screenshots
+# Appearance
+### Short Clip:
+
+### Explanation of the appearance:
+
+# Our Scores On The cases 0 - 15
