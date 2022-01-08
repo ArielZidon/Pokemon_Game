@@ -76,8 +76,10 @@ In order to run the program follow these steps:
   just press the "exit" button at the left upper corner of the window. 
 
 # Appearance
-### Short Clip:
+<p align="center">
+<img src="https://user-images.githubusercontent.com/93203695/148652088-2d8a0089-c7c9-486a-a446-a8380a03fc75.png">
+</p>
 
-### Explanation of the appearance:
+You can see detailed information about the appearance of the project at the Wiki.
 
 # Our Scores On The cases 0 - 15
