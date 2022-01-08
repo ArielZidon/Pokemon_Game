@@ -29,6 +29,10 @@ We created the class "Node" which represents a node of the graph, and the class 
 </a>
 </p>
 
+# General Algorithm
+## The Agent's Allocation
+
+## The Move Function
 
 # Graph's Algorithms
 ## Shortest Path
@@ -66,5 +70,7 @@ In order to run the program follow these steps:
   just press the "exit" button at the left upper corner of the window. 
 
 # Screenshots
+
+# Short Clip
 
 # Our Scores On The cases 0 - 15
