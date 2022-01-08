@@ -85,3 +85,10 @@ You can see detailed information about the appearance of the project at the Wiki
 # Our Scores On The cases 0 - 15
 
 # Computer specifications:
+__The program ran on computer type:__ Lenovo ThinkPad T450 Ultrabook Laptop
+
+__Operating System:__ Edition Windows 10 Pro Version 20H2 Installed on ‎4/‎19/‎2021 OS build 19042.1415 Experience Windows Feature Experience Pack 120.2212.3920.0
+
+__Processor model:__ Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz 2.30 GHz
+
+__Installer RAM :__ 16.0 GB (15.8 GB usable)
