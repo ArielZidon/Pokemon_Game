@@ -41,17 +41,17 @@ class send_Agent():
                 if self.game.agents[0].speed <= 3:
                     time.sleep(0.75)
                 else:
-                    time.sleep(0.25)
+                    time.sleep(0.35)
 
         else:
             if len(pick) <= 2:
                 if self.game.agents[0].speed >= 2:
-                    time.sleep(0.028)
+                    time.sleep(0.035)
                 else:
-                    time.sleep(0.028)
+                    time.sleep(0.035)
             else:
                 if self.game.agents[0].speed <= 2:
-                    time.sleep(0.2)
+                    time.sleep(0.4)
                 else:
                     time.sleep(0.085)
     # //////////////////////////////////////////////////////////////
@@ -118,14 +118,14 @@ class send_Agent():
 
         if len(pick) <= 2:
             if min >= 3:
-                time.sleep(0.025)
+                time.sleep(0.035)
             else:
-                time.sleep(0.025)
+                time.sleep(0.035)
         else:
             if min <= 3:
-                time.sleep(0.1)
+                time.sleep(0.12)
             else:
-                time.sleep(0.025)
+                time.sleep(0.03)
 
 
 
