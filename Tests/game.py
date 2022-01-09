@@ -2,16 +2,8 @@ import math as m
 from DiGraph import *
 from argoments import *
 import json
-from client import Client
-
 
 epsilon = 0.00000000001
-client = Client()
-
-"""
-Receiving String from the server and turning 
-it into arguments according to the tape
-"""
 
 class game:
     def __init__(self) -> None:
@@ -45,10 +37,6 @@ class game:
                 self.pok_pos(p)
                 self.pokemons.append(p)
 
-    """
-    The function gives each Pokemon the side that is
-     on the rise and now we can reach the Pokemon through its side itself
-    """
 
     def pok_pos(self, pok: pokemon) -> None:
         for node1 in self.graph.nodes:
@@ -85,3 +73,51 @@ class game:
     def isEdge(self, src, dest) -> bool:
         return (src, dest) in self.graph.edges
 
+
+
+
+    # def candidateAgent(self, p: pokemon) -> list:
+    #     temp = []
+    #     for a in self.agents.value():
+    #         if len(a.stations) == 0:
+    #             temp.append(a.id)
+    #     if len(temp) == 0:
+    #         temp.append(self.counter % len(self.agents))
+    #         self.counter += 1
+    #     return temp
+    # #
+    # def calc(self, a: agent, p: pokemon):
+    #     print(p.src, p.dest)
+    #     if len(a.stations):
+    #         distance = self.shortest_path(a.stations[-1], p.src)
+    #     else:
+    #         distance = self.shortest_path(a.src, p.src)
+    #     time = (distance[0] / a.speed)
+    #     return (time, distance)
+    #
+    # def allocateAgen(self, p: pokemon) -> None:
+    #     candidAgents = self.candidateAgent(p)
+    #     relevant = float('inf')
+    #     candid = path = None
+    #     for a in candidAgents:
+    #         cal = self.calc(self.agents[a], p)
+    #         if cal[0] < relevant:
+    #             candid = self.agents[a].id
+    #             path = cal[1][1]
+    #     path.pop(0)
+    #     self.agents[candid].stations += path
+    #     self.agents[candid].stations.append(p.dest)
+    #     p.agent = candid
+    #
+    # def allocateAllpokemon(self) -> None:
+    #     for p in self.pokemons:
+    #         if p.agent == None:
+    #             self.allocateAgen(p)
+    #
+    # def CMD(self, client: Client) -> None:
+    #     for a in self.agents.value():
+    #         if a.dest == -1 and len(a.stations) != 0:
+    #             print(f"a = {a}\n src = {a.src}")
+    #             client.choose_next_edge(
+    #                 '{"agent_id":' + str(a.id) + ', "next_node_id":' + str(a.stations[0]) + '}')
+    #             a.stations.pop(0)

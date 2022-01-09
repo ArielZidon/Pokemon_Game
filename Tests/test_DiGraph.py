@@ -1,9 +1,7 @@
 from unittest import TestCase
-from client_python import DiGraph
-<<<<<<< HEAD
-from Node import Node
-=======
->>>>>>> 13f39239562280b8b71da63bc3c851766c1235ff
+from DiGraph import DiGraph
+from client_python import Node
+
 
 
 class TestDiGraph(TestCase):
@@ -51,6 +49,7 @@ class TestDiGraph(TestCase):
         len_g = g.e_size()
         len_d = d.e_size()
 
+        self.assertEqual(len_d, len_g)
 
     def test_get_all_v(self):
         g = DiGraph()
@@ -106,7 +105,6 @@ class TestDiGraph(TestCase):
         d.add_edge(1, 2, 2)
         g.add_edge(2, 3, 3)
         d.add_edge(2, 3, 3)
-
 
         self.assertEqual(d.all_out_edges_of_node(1), g.all_out_edges_of_node(1))
 
