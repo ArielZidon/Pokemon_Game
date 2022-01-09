@@ -29,10 +29,13 @@ We created the class "Node" which represents a node of the graph, and the class 
 </a>
 </p>
 
-# General Algorithm
-## The Agent's Allocation
+# The game algorithm
+## The cmd_solo
+The program will call this action when it detects that there is one agent in the game,
+The function will go through all the Pokemon and give the agent the most suitable Pokemon according to the parameters given by the Shortest Path algorithm.
 
-## The Move Function
+## The cmd_group
+The program will call this function when there is more than one dangerous, in this case the function will go over all the * Pokemon * and give the Pokemon the corresponding agent when at the end of the function we send the preferred agent to the same Pokemon, the other unsent agents will be passed to the "cmd_solo" function to get Pokemon.
 
 # Graph's Algorithms
 ## Shortest Path
