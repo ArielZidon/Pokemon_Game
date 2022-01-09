@@ -96,9 +96,9 @@ In order to run the program follow these steps:
 https://github.com/ArielZidon/Pokemon_Game/wiki/Visualization#a-short-video-of-the-game-running
 
 # Our Scores On The cases 0 - 15
-
-![image](https://user-images.githubusercontent.com/93203695/148675403-a09c877c-aae6-46af-b12a-bb8642194f69.png)
-
+<p align="center">
+<img src="https://user-images.githubusercontent.com/93203695/148675732-86da68f0-d6c0-47a1-b7a4-11b5c3ad3a05.png">
+</p>
 
 # Computer specifications:
 __The program ran on computer type:__ Lenovo ThinkPad T450 Ultrabook Laptop
