@@ -97,6 +97,9 @@ https://github.com/ArielZidon/Pokemon_Game/wiki/Visualization#a-short-video-of-t
 
 # Our Scores On The cases 0 - 15
 
+![image](https://user-images.githubusercontent.com/93203695/148675403-a09c877c-aae6-46af-b12a-bb8642194f69.png)
+
+
 # Computer specifications:
 __The program ran on computer type:__ Lenovo ThinkPad T450 Ultrabook Laptop
 
