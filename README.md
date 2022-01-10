@@ -70,6 +70,7 @@ follow the next section to understand how to use the program.
 
 ## Usage
 Click on the release tag and then download the zip file that is there:
+![image](https://user-images.githubusercontent.com/93542763/148731701-29accdf9-bd7e-4e45-b8f9-0300d1f3308d.png)
 
 
 In order to run the program follow these steps:
