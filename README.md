@@ -69,6 +69,9 @@ In order to install the program you need to follow these steps:
 follow the next section to understand how to use the program.
 
 ## Usage
+Click on the release tag and then download the zip file that is there:
+
+
 In order to run the program follow these steps:
 - Open a new Terminal (if you use PyCharm, open the terminal at the lower toolbar)
 - Write the command : java -jar Ex4_Server_v0.0.jar "Case number"
